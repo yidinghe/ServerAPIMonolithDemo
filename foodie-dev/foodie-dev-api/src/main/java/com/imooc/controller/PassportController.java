@@ -18,7 +18,7 @@ public class PassportController {
     @GetMapping("/usernameIsExist")
     public int hello(@RequestParam String username) {
 
-        if (StringUtils.isNotBlank(username)) {
+        if (StringUtils.isBlank(username)) {
             return 500;
         }
 
