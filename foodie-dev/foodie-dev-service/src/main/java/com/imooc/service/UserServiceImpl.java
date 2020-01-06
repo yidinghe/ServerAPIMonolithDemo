@@ -6,7 +6,7 @@ import com.imooc.pojo.Users;
 import com.imooc.pojo.bo.UserBO;
 import com.imooc.utils.DateUtil;
 import com.imooc.utils.MD5Utils;
-import org.apache.catalina.User;
+import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UsersMapper usersMapper;
+
+    @Autowired
+    private Sid sid;
 
     private static final String USER_FACE = "http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
 
@@ -41,8 +44,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Users createUser(UserBO userBO) {
+        String userId = sid.nextShort();
 
         Users user = new Users();
+        user.setId(userId);
         user.setUsername(userBO.getUsername());
         try {
             user.setPassword(MD5Utils.getMD5Str(userBO.getPassword()));
@@ -56,6 +61,7 @@ public class UserServiceImpl implements UserService {
         user.setCreatedTime(new Date());
         user.setUpdatedTime(new Date());
 
+        usersMapper.insert(user);
         return user;
     }
 }
