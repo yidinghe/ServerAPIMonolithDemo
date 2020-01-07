@@ -1,7 +1,12 @@
 package com.imooc.pojo.bo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "用户对象BO", description = "用户对象的封装")
 public class UserBO {
 
+    @ApiModelProperty(value = "用户名", name = "username", example = "yhe", required = true)
     private String username;
 
     private String password;
