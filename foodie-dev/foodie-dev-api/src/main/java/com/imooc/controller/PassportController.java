@@ -43,7 +43,7 @@ public class PassportController {
         String confirmPwd = userBO.getConfirmPassword();
 
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(confirmPwd)) {
-            return IMOOCJSONResult.errorMsg("用户名不能为空");
+            return IMOOCJSONResult.errorMsg("用户名或密码不能为空");
         }
 
         boolean isExist = userService.queryUsernameIsExist(username);
@@ -60,6 +60,26 @@ public class PassportController {
         }
 
         Users user = userService.createUser(userBO);
+
+        return IMOOCJSONResult.ok(user);
+    }
+
+    @ApiOperation(value = "用户登录", httpMethod = "POST")
+    @PostMapping("/login")
+    public IMOOCJSONResult login(@RequestBody UserBO userBO) {
+
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return IMOOCJSONResult.errorMsg("用户名或密码不能为空");
+        }
+
+        Users user = userService.queryUserForLogin(userBO.getUsername(), userBO.getPassword());
+
+        if (user == null) {
+            return IMOOCJSONResult.errorMsg("用户名密码不匹配");
+        }
 
         return IMOOCJSONResult.ok(user);
     }
