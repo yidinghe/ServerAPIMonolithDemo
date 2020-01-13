@@ -41,7 +41,7 @@ public class PassportController {
 
     @ApiOperation(value = "注册用户", httpMethod = "POST")
     @PostMapping("/regist")
-    public IMOOCJSONResult register(@RequestBody UserBO userBO) {
+    public IMOOCJSONResult register(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) {
 
         String username = userBO.getUsername();
         String password = userBO.getPassword();
@@ -65,6 +65,9 @@ public class PassportController {
         }
 
         Users user = userService.createUser(userBO);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(user), true);
+        response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
 
         return IMOOCJSONResult.ok(user);
     }
