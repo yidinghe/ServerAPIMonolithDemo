@@ -68,8 +68,8 @@ public class PassportController {
 
         user = setNullProperty(user);
 
-        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(user), true);
-        response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+        CookieUtils.setCookie(request, response, "user",
+                JsonUtils.objectToJson(user), true);
 
         return IMOOCJSONResult.ok(user);
     }
@@ -95,7 +95,7 @@ public class PassportController {
         user = setNullProperty(user);
 
         CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(user), true);
-        response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+
         return IMOOCJSONResult.ok(user);
     }
 
