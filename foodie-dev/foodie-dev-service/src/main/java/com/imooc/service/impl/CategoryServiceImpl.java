@@ -1,8 +1,8 @@
 package com.imooc.service.impl;
 
-import com.imooc.mapper.CarouselMapper;
-import com.imooc.pojo.Carousel;
-import com.imooc.service.CarouselService;
+import com.imooc.mapper.CategoryMapper;
+import com.imooc.pojo.Category;
+import com.imooc.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,21 +12,20 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 @Service
-public class CarouselServiceImpl implements CarouselService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CarouselMapper carouselMapper;
+    private CategoryMapper categoryMapper;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public List<Carousel> queryAll(Integer isShow) {
+    public List<Category> queryAllRootLevelCat() {
 
-        Example example = new Example(Carousel.class);
-        example.orderBy("sort").desc();
+        Example example = new Example(Category.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("isShow", isShow);
+        criteria.andEqualTo("type", 1);
 
-        List<Carousel> result =  carouselMapper.selectByExample(example);
+        List<Category> result =  categoryMapper.selectByExample(example);
 
         return result;
     }
