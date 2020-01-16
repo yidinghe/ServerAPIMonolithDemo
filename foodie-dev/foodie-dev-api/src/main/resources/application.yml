@@ -18,10 +18,10 @@ server:
 spring:
   datasource:                                           # 数据源的相关配置
     type: com.zaxxer.hikari.HikariDataSource          # 数据源类型：HikariCP
-    driver-class-name: com.mysql.jdbc.Driver          # mysql驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver      # mysql驱动
     url: jdbc:mysql://localhost:3306/foodieshop?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: He8110271
+    password: 123456HeTrux
     hikari:
       connection-timeout: 30000       # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 默认:30秒
       minimum-idle: 5                 # 最小连接数
